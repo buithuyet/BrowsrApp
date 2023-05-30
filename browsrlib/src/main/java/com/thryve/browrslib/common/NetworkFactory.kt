@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object NetworkFactory {
 
     private const val BASE_URL = "https://api.github.com"
-    private const val API_TOKEN = "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"
+    private const val API_TOKEN = "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"
     private var gson = GsonBuilder()
         .setLenient()
         .create()
