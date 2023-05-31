@@ -14,3 +14,6 @@ Sample app shows list of Github organization
            ```
 - app/
     * Sample app displays list of organization and function store favorites
+
+## Test
+- To run/test app you may need to put your github token into browsrlib/NetworkFactory.kt
