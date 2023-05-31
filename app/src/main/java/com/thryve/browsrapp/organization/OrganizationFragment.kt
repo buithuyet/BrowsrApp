@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.thryve.browsrapp.MainViewModel
 import com.thryve.browsrapp.databinding.FragmentOrganizationBinding
 
 class OrganizationFragment : Fragment() {
@@ -18,7 +17,7 @@ class OrganizationFragment : Fragment() {
     private var _binding: FragmentOrganizationBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var organizationFragmentViewModel: OrganizationFragmentViewModel
     private val adapter by lazy { OrganizationListItemAdapter(::onFavoriteClick) }
 
     override fun onCreateView(
@@ -33,8 +32,8 @@ class OrganizationFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        mainViewModel.organizationsResultsLiveData.observe(this) {
+        organizationFragmentViewModel = ViewModelProvider(this)[OrganizationFragmentViewModel::class.java]
+        organizationFragmentViewModel.organizationsResultsLiveData.observe(this) {
             if (it.first.isSuccess) {
                 adapter.updateAll(
                     OrganizationListItemMapper.mapToListItems(
@@ -50,7 +49,7 @@ class OrganizationFragment : Fragment() {
                 ).show()
             }
         }
-        mainViewModel.getOrganizations(requireContext())
+        organizationFragmentViewModel.getOrganizations(requireContext())
     }
 
     private fun initViews() = with(binding) {
@@ -71,7 +70,7 @@ class OrganizationFragment : Fragment() {
 
     private fun onFavoriteClick(organizationListItem: OrganizationListItem) {
         adapter.updateFavoriteItem(organizationListItem)
-        mainViewModel.insertOrUpdateFavorite(requireContext(), organizationListItem)
+        organizationFragmentViewModel.insertOrUpdateFavorite(requireContext(), organizationListItem)
     }
 
     override fun onDestroyView() {
